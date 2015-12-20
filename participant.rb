@@ -1,5 +1,4 @@
 class Participant
-
   attr_accessor :name
   attr_accessor :partner
 
@@ -7,5 +6,4 @@ class Participant
     @name = name
     @partner = partner
   end
-
 end
