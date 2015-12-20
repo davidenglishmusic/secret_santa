@@ -60,6 +60,7 @@ while continue_matching
   if receivers.empty?
     continue_matching = false
   else
+    assignments.clear
     receivers.clear
     (receivers << givers).flatten!
   end
