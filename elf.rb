@@ -1,9 +1,8 @@
 class Elf
   def match_participants(the_hat)
     participants = the_hat.clone
-    continue_matching = true
     assignments = []
-    while continue_matching
+    while true
       participants.each do |participant|
         if the_hat.size < 3 && the_hat.size > 0
           break unless remaining_recipients_are_valid(the_hat, participant)
