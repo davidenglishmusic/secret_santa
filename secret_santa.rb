@@ -6,33 +6,33 @@ nancy = Participant.new('Nancy', 'Michael')
 michael = Participant.new('Michael', 'Nancy')
 david = Participant.new('David', 'Emilie')
 
-givers = [elspeth, emilie, nancy, michael, david]
+participants = [elspeth, emilie, nancy, michael, david]
 
-receivers = []
+the_hat = []
 
-(receivers << givers).flatten!
+(the_hat << participants).flatten!
 
 continue_matching = true
 assignments = []
 
 while continue_matching
 
-  givers.each do |giver|
-    # Start over if the only receiver left is the giver him or herself
-    if receivers.size == 1 && receivers[0].name == giver.name
+  participants.each do |participant|
+    # Start over if the only receiver left is the participant him or herself
+    if the_hat.size == 1 && the_hat[0].name == participant.name
       break
     # Start over if the only receiver left is the giver's partner
-    elsif receivers.size == 1 && (!giver.partner.nil? && receivers[0].name == giver.partner)
+  elsif the_hat.size == 1 && (!participant.partner.nil? && the_hat[0].name == participant.partner)
       break
-    # Start over if the only receivers left are the giver him or herself and the giver's partner
-    elsif receivers.size == 2  && !giver.partner.nil?
+    # Start over if the only receivers left are the participant him or herself and the participant's partner
+    elsif the_hat.size == 2  && !participant.partner.nil?
       found_self = false
       found_partner = false
-      receivers.each do |receiver|
-        if giver.partner == receiver.name
+      the_hat.each do |recipient|
+        if participant.partner == recipient.name
           found_partner = true
         end
-        if giver.name == receiver.name
+        if participant.name == recipient.name
           found_self = true
         end
       end
@@ -41,15 +41,15 @@ while continue_matching
 
     keep_looking_for_individual_match = true
     while keep_looking_for_individual_match
-      possible_match = receivers.sample
+      possible_match = the_hat.sample
       # retry if the possible_match is the giver or the giver's partner
-      if possible_match.name == giver.name || (!giver.partner.nil? && possible_match.name == giver.partner)
+      if possible_match.name == participant.name || (!participant.partner.nil? && possible_match.name == participant.partner)
       else
-        assignments.push([giver, possible_match])
+        assignments.push([participant, possible_match])
         keep_looking_for_individual_match = false
-        receivers.each_with_index do |receiver, index|
-          if receiver.name == possible_match.name
-            receivers.delete_at(index)
+        the_hat.each_with_index do |recipient, index|
+          if recipient.name == possible_match.name
+            the_hat.delete_at(index)
             break
           end
         end
@@ -57,12 +57,12 @@ while continue_matching
     end
   end
 
-  if receivers.empty?
+  if the_hat.empty?
     continue_matching = false
   else
     assignments.clear
-    receivers.clear
-    (receivers << givers).flatten!
+    the_hat.clear
+    the_hat << participants.flatten!
   end
 end
 
