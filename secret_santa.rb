@@ -13,6 +13,6 @@ the_hat = [elspeth, emilie, nancy, michael, david]
 
 assignments = legolas.match_participants(the_hat)
 
-assignments.each do |combo|
-  puts combo[0].name + ' will give a gift to ' + combo[1].name
+assignments.each_with_index do |recipient, index|
+  puts the_hat[index].name + ' will give a gift to ' + recipient.name
 end
